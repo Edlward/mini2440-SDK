@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 # SDK for mini2440
 
 #### 项目介绍
@@ -91,6 +92,8 @@ nfs-start :
 5. 码云官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
 6. 码云封面人物是一档用来展示码云会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
 =======
+=======
+>>>>>>> 8a45597c758acfcf1dab7d06152acbd00471b19e
 # mini2440-SDK
  SDK for mini2440
  
@@ -158,4 +161,7 @@ nfs-start :
   0x00040000-0x00060000 : "params"        
   0x00060000-0x00260000 : "kernel"           
   0x00260000-0x10000000 : "root"        
+<<<<<<< HEAD
+>>>>>>> 8a45597c758acfcf1dab7d06152acbd00471b19e
+=======
 >>>>>>> 8a45597c758acfcf1dab7d06152acbd00471b19e
