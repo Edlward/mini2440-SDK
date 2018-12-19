@@ -1,0 +1,91 @@
+编译：
+u-boot
+	make mini2440_config
+	make all
+
+kernel
+	make s3c2410_defconfig
+	make menuconfig
+	File system --->
+		Miscellaneous filesystem --->
+		<*> YAFFS2 filesystem support
+	make uImage
+	
+
+
+网络下载命令：
+
+tftp下载： 
+
+bootloader:
+	tftp 30000000 u-boot.bin
+	nand erase bootloader
+	nand write.jffs2 30000000 bootloader
+
+
+kernel：
+	tftp 30000000 uImage
+	nand erase 0x00060000 0x200000 
+	nand write.jffs2 30000000 0x60000 0x200000
+
+fs-yaffs：
+	tftp 30000000 rootfs.yaffs2
+	nand erase root
+	nand write.yaffs 30000000 0x260000 889bc0
+	
+	tftp 30000000 rootfs.yaffs2
+	nand erase root
+	nand write.yaffs 30000000 0x260000 145ae80
+
+nfs下载
+安装nfs服务
+	sudo apt-get install nfs-kernel-server portmap
+	vim /etc/exports
+	+/home/flinn/mini2440/bin *(rw,sync,no_root_squash)  
+	sudo /etc/init.d/nfs-kernel-server restart
+
+bootloader:
+	nfs 30000000 192.168.1.133:/home/flinn/mini2440/bin/u-boot.bin
+	nand erase bootloader
+	nand write.jffs2 30000000 bootloader
+
+kernel :
+	nfs 30000000 192.168.1.133:/home/flinn/mini2440/bin/uImage
+	nand erase 0x60000 0x200000
+	nand write.jffs2 30000000 0x60000 0x200000
+	
+	// nand erase kernel ; nand write.jffs2 30000000 kernel
+
+fs-yaffs2:
+	nfs 30000000 192.168.1.133:/home/flinn/mini2440/bin/rootfs.yaffs2
+	nand erase root
+	nand write.yaffs 30000000 0x260000 85d640
+	
+
+fs-jffs2
+	nfs 30000000 192.168.1.133:/home/flinn/mini2440/bin/rootfs.jffs2
+	nand erase root
+	nand write.jffs2 30000000 260000 $filesize
+	set bootargs console=ttySAC0,115200 root=/dev/mtdblock3 rootfstype=jffs2
+
+
+默认环境变量
+
+bootcmd=nand read.jffs2 0x30007FC0 kernel; bootm 0x30007FC0
+bootdelay=3
+baudrate=115200
+ethaddr=08:00:3e:26:0a:5b
+mtdids=nand0=nandflash0
+mtdparts=mtdparts=nandflash0:256k@0(bootloader),128k(params),2m(kernel),-(root)
+filesize=3e266c
+fileaddr=30000000
+netmask=255.255.255.0
+ipaddr=192.168.1.123
+serverip=192.168.1.104
+bootargs=console=ttySAC0,115200 root=/dev/mtdblock3
+stdin=serial
+stdout=serial
+stderr=serial
+partition=nand0,0
+mtddevnum=0
+mtddevname=bootloader

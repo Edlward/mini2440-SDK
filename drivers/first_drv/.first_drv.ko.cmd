@@ -1,0 +1,1 @@
+cmd_/home/flinn/mini2440/drivers/first_drv/first_drv.ko := arm-linux-ld -EL  -r -o /home/flinn/mini2440/drivers/first_drv/first_drv.ko /home/flinn/mini2440/drivers/first_drv/first_drv.o /home/flinn/mini2440/drivers/first_drv/first_drv.mod.o

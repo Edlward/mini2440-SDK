@@ -1,0 +1,1 @@
+cmd_/home/flinn/mini2440/drivers/second_drv/second_drv.ko := arm-linux-ld -EL  -r -o /home/flinn/mini2440/drivers/second_drv/second_drv.ko /home/flinn/mini2440/drivers/second_drv/second_drv.o /home/flinn/mini2440/drivers/second_drv/second_drv.mod.o

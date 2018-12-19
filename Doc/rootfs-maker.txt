@@ -1,0 +1,164 @@
+构建文件系统rootfs
+
+一  工具准备
+（1）工具包
+		工具
+		mkfs.jffs2            package		 zlib-1.2.3.tar.gz	 mtd-utils-05.07.23.tar.bz2
+		mkyaffs2image         package    yaffs_source_util_large_small_page_nand.tar.bz2
+			
+			
+		tool-chain
+		arm-linux-gcc-3.4.5
+			
+（2）工具mkfs.jffs2编译
+		#tar xzf zlib-1.2.3.tar.gz
+		#cd zlib-1.2.3
+		#./configure --shared --prefix=/usr
+		#make
+		#make install
+		
+		error： 	mkfs.jffs2.c:71:21: fatal error: sys/acl.h: No such file or directory
+							sudo apt-get install uuid-dev libacl1-dev liblzo2-dev
+
+
+		tar xjf mtd-utils-05.07.23.tar.bz2
+		#cd mtd-utils-05.07.23/util
+		#make
+		#make install
+
+（3）工具mkyaffs2image编译
+		#tar xjf? yaffs_source_util_large_small_page_nand.tar.bz2
+		#cd Developement_util_ok
+		#cd yaffs2
+		#cd utils
+		#make
+		#cp mkyaffs2image /usr/local/bin
+		#chmod +x /usr/local/bin/mkyaffs2image
+
+二 文件系统目录
+		mkdir ~/mini2440/rootfs/rootfs -p
+
+三 编译Busybox-1.7.0
+		vim Makefile
+			ARCH            ?= arm
+			CROSS_COMPILE   ?= /usr/local/bin/3.4.5/bin/arm-linux-
+
+		make
+				make CONFIG_PREFIX=~/mini2440/rootfs/rootfs install
+
+
+
+四 创建重要目录
+（1）console 和 null
+		否则报错：
+		Warning: unable to open an initial console.
+		
+		#mkdir dev
+		#cd dev
+		#mknod console c 5 1 
+		#mknod null c 1 3
+		#ls -l
+		显示：
+		crw-r--r-- 1 root root 5, 1 2015-05-06 20:39 console
+		crw-r--r-- 1 root root 1, 3 2015-05-06 20:40 null
+		表示创建成功
+
+（2）/etc/inittab
+		#cd rootfs
+		#mkdir etc
+		#vim  etc/inittab
+		
+		输入：
+		console::askfirst:-/bin/sh		
+
+
+（3）安装c库
+		#cd rootfs
+		#mkdir lib
+		#cp  /usr/local/bin/3.4.5/arm-linux/lib/*.so* ~/mini2440/rootfs/rootfs/lib/ -d
+
+（4）制作根文件系统
+		#mkfs.jffs2 -n -s 2048 -e 128KiB -d rootfs -o rootfs.jffs2	  
+		#mkyaffs2image rootfs rootfs.yaffs2
+
+
+nfs烧录
+		fs-yaffs2:
+		nfs 30000000 192.168.1.133:/home/flinn/mini2440/bin/rootfs.yaffs2
+		nand erase root
+		nand write.yaffs 30000000 0x260000 85b540
+
+		fs-jffs2
+		nfs 30000000 192.168.1.133:/home/flinn/mini2440/bin/rootfs.jffs2
+		nand erase root
+		nand write.jffs2 30000000 260000 $filesize
+		set bootargs console=ttySAC0,115200 root=/dev/mtdblock3 rootfstype=jffs2
+
+
+五  优化
+		当前不支持PROC
+（5）支持PROC
+		#vim  etc/inittab
+		console::askfirst:-/bin/sh
+		+::sysinit:/etc/init.d/rcS
+
+		创建/etc/init.d/rcS 文件
+		mkdir /etc/init.d
+		vim  /etc/init.d/rcS
+		+mount -t proc none /proc
+		chmod +x /etc/init.d/rcS
+
+
+（6）使用mount -a
+		vim  /etc/init.d/rcS
+		#mount -t proc none /proc
+		mount -a
+
+		mount -a 依赖/etc/fstab
+		vim /etc/fstab
+		+ # device    mount-point      type   option    dump   fsck  order
+		+ proc         /proc            proc     defaults     0      0
+
+（6）支持mdev
+		cd rootfs
+		mkdir sys
+		vim etc/fstab
+			+sysfs           /sys           sysfs    defaults     0      0
+    	+tmpfs           /dev           tmpfs    defaults     0      0
+
+		vim etc/init.d/rcS
+			mount -a 
+	    mkdir /dev/pts/
+	    mount -t devpts devpts /dev/pts
+	    echo /sbin/mdev > /proc/sys/kernel/hotplug
+	    mdev -s
+		
+
+
+网络启动：
+条件： kernel 支持dm9000驱动
+			 主机配置了nfs服务
+
+（1）添加nfs共享目录
+			#vim /etc/exports
+			+/home/flinn/mini2440/rootfs/mini_mdev_fs *(rw,sync,no_root_squash)
+			
+			#sudo /etc/init.d/nfs-kernel-server restart
+
+（2）从flash上启动根文件系统，再用命令挂接
+			mount -t nfs -o nolock 192.168.1.133:/home/flinn/mini2440/rootfs/mini_mdev_fs /mnt	
+
+（3）从nfs服务器上去启动根文件系统
+		修改命令行参数
+		原来
+		bootargs=noinitrd root=/dev/mtdblock3 init=/linuxrc console=ttySAC0
+		set bootargs noinitrd root=/dev/nfs nfsroot=192.168.1.133:/home/flinn/mini2440/rootfs/mini_mdev_fs  ip=192.168.1.123:192.168.1.133:192.168.1.1:255.255.255.0::eth0:off init=/linuxrc console=ttySAC0
+		save
+
+
+问题：
+单板挂载mount: 192.168.1.133:/home/flinn/mini2440/r                                    ven by server: Permission denied
+TO ： 
+		sudo /etc/init.d/rpcbind restart
+		exportfs -a
+		sudo chmod 777 -R /var/lib/nfs/etab

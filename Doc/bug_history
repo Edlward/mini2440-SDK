@@ -1,0 +1,14 @@
+bugs
+
+[No.1] nor copy fail  data : Oct 31, 2018 
+	tftp 30000000 u-boot.bin
+	protect off all
+	erase 0 7ffff
+	cp.b 30000000 0 80000
+
+	Copy to Flash... Flash not Erased
+	actual, the size is read success as 2M, everything sees ok ,but ... once I want to update, bug is comming.
+
+	so, here we should not use nor-flash in board/flash.x but used std cfi_flash
+
+

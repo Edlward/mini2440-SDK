@@ -1,0 +1,94 @@
+jffs2_1pass.o: jffs2_1pass.c /home/flinn/mini2440/u-boot/include/common.h \
+  /home/flinn/mini2440/u-boot/include/config.h \
+  /home/flinn/mini2440/u-boot/include/configs/mini2440.h \
+  /home/flinn/mini2440/u-boot/include/cmd_confdefs.h \
+  /home/flinn/mini2440/u-boot/include/linux/bitops.h \
+  /home/flinn/mini2440/u-boot/include/asm/bitops.h \
+  /home/flinn/mini2440/u-boot/include/linux/types.h \
+  /home/flinn/mini2440/u-boot/include/linux/config.h \
+  /home/flinn/mini2440/u-boot/include/linux/posix_types.h \
+  /home/flinn/mini2440/u-boot/include/linux/stddef.h \
+  /home/flinn/mini2440/u-boot/include/asm/posix_types.h \
+  /home/flinn/mini2440/u-boot/include/asm/types.h \
+  /home/flinn/mini2440/u-boot/include/linux/string.h \
+  /home/flinn/mini2440/u-boot/include/asm/string.h \
+  /home/flinn/mini2440/u-boot/include/asm/ptrace.h \
+  /home/flinn/mini2440/u-boot/include/asm/proc/ptrace.h \
+  /usr/local/bin/3.4.5/bin/../lib/gcc/arm-linux/3.4.5/include/stdarg.h \
+  /home/flinn/mini2440/u-boot/include/part.h \
+  /home/flinn/mini2440/u-boot/include/ide.h \
+  /home/flinn/mini2440/u-boot/include/flash.h \
+  /home/flinn/mini2440/u-boot/include/image.h \
+  /home/flinn/mini2440/u-boot/include/asm/u-boot.h \
+  /home/flinn/mini2440/u-boot/include/asm/global_data.h \
+  /home/flinn/mini2440/u-boot/include/asm/mach-types.h \
+  /home/flinn/mini2440/u-boot/include/asm/setup.h \
+  /home/flinn/mini2440/u-boot/include/asm/u-boot-arm.h \
+  /home/flinn/mini2440/u-boot/include/malloc.h \
+  /home/flinn/mini2440/u-boot/include/linux/stat.h \
+  /home/flinn/mini2440/u-boot/include/linux/time.h \
+  /home/flinn/mini2440/u-boot/include/jffs2/jffs2.h \
+  /home/flinn/mini2440/u-boot/include/jffs2/load_kernel.h \
+  /home/flinn/mini2440/u-boot/include/linux/list.h \
+  /home/flinn/mini2440/u-boot/include/jffs2/jffs2_1pass.h jffs2_private.h \
+  /home/flinn/mini2440/u-boot/include/nand.h \
+  /home/flinn/mini2440/u-boot/include/linux/mtd/compat.h \
+  /home/flinn/mini2440/u-boot/include/linux/mtd/mtd.h \
+  /home/flinn/mini2440/u-boot/include/linux/mtd/mtd-abi.h \
+  /home/flinn/mini2440/u-boot/include/linux/mtd/nand.h
+compr_rtime.o: compr_rtime.c /home/flinn/mini2440/u-boot/include/config.h \
+  /home/flinn/mini2440/u-boot/include/configs/mini2440.h \
+  /home/flinn/mini2440/u-boot/include/cmd_confdefs.h \
+  /home/flinn/mini2440/u-boot/include/jffs2/jffs2.h \
+  /home/flinn/mini2440/u-boot/include/asm/types.h \
+  /home/flinn/mini2440/u-boot/include/jffs2/load_kernel.h \
+  /home/flinn/mini2440/u-boot/include/linux/list.h
+compr_rubin.o: compr_rubin.c /home/flinn/mini2440/u-boot/include/config.h \
+  /home/flinn/mini2440/u-boot/include/configs/mini2440.h \
+  /home/flinn/mini2440/u-boot/include/cmd_confdefs.h \
+  /home/flinn/mini2440/u-boot/include/jffs2/jffs2.h \
+  /home/flinn/mini2440/u-boot/include/asm/types.h \
+  /home/flinn/mini2440/u-boot/include/jffs2/load_kernel.h \
+  /home/flinn/mini2440/u-boot/include/linux/list.h \
+  /home/flinn/mini2440/u-boot/include/jffs2/compr_rubin.h
+compr_zlib.o: compr_zlib.c /home/flinn/mini2440/u-boot/include/common.h \
+  /home/flinn/mini2440/u-boot/include/config.h \
+  /home/flinn/mini2440/u-boot/include/configs/mini2440.h \
+  /home/flinn/mini2440/u-boot/include/cmd_confdefs.h \
+  /home/flinn/mini2440/u-boot/include/linux/bitops.h \
+  /home/flinn/mini2440/u-boot/include/asm/bitops.h \
+  /home/flinn/mini2440/u-boot/include/linux/types.h \
+  /home/flinn/mini2440/u-boot/include/linux/config.h \
+  /home/flinn/mini2440/u-boot/include/linux/posix_types.h \
+  /home/flinn/mini2440/u-boot/include/linux/stddef.h \
+  /home/flinn/mini2440/u-boot/include/asm/posix_types.h \
+  /home/flinn/mini2440/u-boot/include/asm/types.h \
+  /home/flinn/mini2440/u-boot/include/linux/string.h \
+  /home/flinn/mini2440/u-boot/include/asm/string.h \
+  /home/flinn/mini2440/u-boot/include/asm/ptrace.h \
+  /home/flinn/mini2440/u-boot/include/asm/proc/ptrace.h \
+  /usr/local/bin/3.4.5/bin/../lib/gcc/arm-linux/3.4.5/include/stdarg.h \
+  /home/flinn/mini2440/u-boot/include/part.h \
+  /home/flinn/mini2440/u-boot/include/ide.h \
+  /home/flinn/mini2440/u-boot/include/flash.h \
+  /home/flinn/mini2440/u-boot/include/image.h \
+  /home/flinn/mini2440/u-boot/include/asm/u-boot.h \
+  /home/flinn/mini2440/u-boot/include/asm/global_data.h \
+  /home/flinn/mini2440/u-boot/include/asm/mach-types.h \
+  /home/flinn/mini2440/u-boot/include/asm/setup.h \
+  /home/flinn/mini2440/u-boot/include/asm/u-boot-arm.h \
+  /home/flinn/mini2440/u-boot/include/jffs2/jffs2.h \
+  /home/flinn/mini2440/u-boot/include/jffs2/load_kernel.h \
+  /home/flinn/mini2440/u-boot/include/linux/list.h \
+  /home/flinn/mini2440/u-boot/include/jffs2/mini_inflate.h
+mini_inflate.o: mini_inflate.c \
+  /home/flinn/mini2440/u-boot/include/config.h \
+  /home/flinn/mini2440/u-boot/include/configs/mini2440.h \
+  /home/flinn/mini2440/u-boot/include/cmd_confdefs.h \
+  /home/flinn/mini2440/u-boot/include/jffs2/mini_inflate.h
+compr_lzo.o: compr_lzo.c /home/flinn/mini2440/u-boot/include/config.h \
+  /home/flinn/mini2440/u-boot/include/configs/mini2440.h \
+  /home/flinn/mini2440/u-boot/include/cmd_confdefs.h
+compr_lzari.o: compr_lzari.c /home/flinn/mini2440/u-boot/include/config.h \
+  /home/flinn/mini2440/u-boot/include/configs/mini2440.h \
+  /home/flinn/mini2440/u-boot/include/cmd_confdefs.h
